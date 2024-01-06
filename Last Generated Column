@@ -1,0 +1,69 @@
+-- User 2
+
+INSERT INTO Test2 VALUES('ZZZ');
+
+-- User 1
+CREATE TABLE Test1 
+(
+	ID INT IDENTITY(1,1),
+	VALUE NVARCHAR(20) 
+)
+
+CREATE TABLE Test2
+(
+	ID INT IDENTITY(1,1),
+	Value NVARCHAR(20)
+)
+
+INSERT INTO Test1 VALUES('X');
+INSERT INTO Test1 VALUES('X');
+
+SELECT * FROM Test1;
+
+CREATE TRIGGER trForInsert ON Test1 FOR INSERT 
+AS 
+BEGIN
+	INSERT INTO Test2 VALUES('YYYY') 
+END
+
+SELECT SCOPE_IDENTITY(); 
+SELECT @@IDENTITY 
+
+SELECT * FROM Test1;
+SELECT * FROM Test2;
+
+INSERT INTO Test1 VALUES('X');
+
+SELECT SCOPE_IDENTITY(); 
+SELECT @@IDENTITY 
+
+SELECT * FROM Test1;
+SELECT * FROM Test2;
+
+INSERT INTO Test2 VALUES('ZZZ');
+
+SELECT SCOPE_IDENTITY(); 
+SELECT @@IDENTITY 
+SELECT IDENT_CURRENT('Test2') 
+
+INSERT INTO Test2 VALUES('ZZZ');
+
+SELECT SCOPE_IDENTITY(); 
+SELECT @@IDENTITY 
+SELECT IDENT_CURRENT('Test2') 
+
+
+
+-----------------------------------------------------------------------------------------------
+
+import pandas as pan
+
+dataset = {
+	'vertical1' : [50, 100, 150, 200, 250],
+	'vertical2' : [55, 110, 165, 220, 275],
+	'vertical3' : [56, 112, 168, 224, 280] 
+}
+
+dataframe_2 = pan.DataFrame(data=dataset) 
+
+print(dataframe_2)
